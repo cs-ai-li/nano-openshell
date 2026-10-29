@@ -1,0 +1,35 @@
+version: 1
+default_action: deny
+
+network_policies:
+  - name: openai_agent_inference
+    hosts:
+      - "api.openai.com"
+      - "api.openai.local"
+      - "127.0.0.1"
+    ports: [443, 80, 18080]
+    # Per-Binary Network Policy:
+    # 仅允许 Python Agent 运行时访问，阻止被 Prompt Injection 派生的 curl/wget/sh
+    allowed_binaries:
+      - "/usr/bin/python3*"
+      - "*/python3*"
+    l7_rules:
+      - methods: ["GET"]
+        paths: ["/v1/models"]
+      - methods: ["POST"]
+        paths: ["/v1/chat/completions"]
+    credential:
+      env_var: "REAL_OPENAI_KEY"
+      header: "Authorization"
+      value_template: "Bearer ${REAL_OPENAI_KEY}"
+
+  - name: github_public_readonly
+    hosts:
+      - "api.github.com"
+    ports: [443]
+    allowed_binaries:
+      - "/usr/bin/python3*"
+      - "/usr/bin/git"
+    l7_rules:
+      - methods: ["GET"]
+        paths: ["/repos/*"]
