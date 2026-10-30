@@ -1,5 +1,7 @@
 # Nano-OpenShell
 
+> 📝 **Blog / Deep Dive**: [https://my-blog-tau-nine-28.vercel.app/posts/](https://my-blog-tau-nine-28.vercel.app/posts/) ([大道至简：用 700 行纯 Python 从零手搓 NVIDIA OpenShell 零信任 Agent 沙箱](https://my-blog-tau-nine-28.vercel.app/posts/building-nano-openshell-from-scratch/))
+
 A minimal, zero-external-daemon reference implementation (~1,000 lines of Python on Linux) of OpenShell's core sandbox security architecture: **Linux User/Network Namespace Isolation**, **Procfs Socket-to-Binary Attribution**, **Out-of-Process L4/Binary/L7 Policy Enforcement & Credential Injection**, and **Static Policy Containment Verification**.
 
 ## Architecture
